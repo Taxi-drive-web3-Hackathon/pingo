@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Payment } from './payment';
 import { PrismaService } from '../common/services/prisma.service';
+import { NewPaymentRequest } from './models';
 
 @Injectable()
 export class PaymentService {
@@ -14,5 +15,15 @@ export class PaymentService {
     return this.prisma.payment.findFirst({
       where: { id, userId },
     });
+  }
+
+  public async create(payment: NewPaymentRequest): Promise<Payment | null> {
+    return this.prisma.payment.create({
+      data: {
+        addressReceiver: payment.addressReceiver,
+        chainId: payment.chainId,
+        amount: payment.amount,
+      }
+    })
   }
 }

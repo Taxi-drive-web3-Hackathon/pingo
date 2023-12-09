@@ -14,7 +14,7 @@ DROP TABLE "Payment";
 CREATE TABLE "payment" (
     "id" SERIAL NOT NULL,
     "addressReceiver" TEXT NOT NULL,
-    "chainId" TEXT,
+    "chainId" INTEGER NOT NULL,
     "amount" INTEGER NOT NULL,
     "userId" INTEGER,
 
