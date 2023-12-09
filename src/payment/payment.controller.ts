@@ -17,6 +17,7 @@ import { Usr } from '../user/user.decorator';
 import { AuthUser } from '../auth/auth-user';
 import { PaymentService } from './payment.service';
 import { NewPaymentRequest, PaymentResponse } from './models';
+import { Payment } from '@prisma/client';
 
 @ApiTags('payments')
 @Controller('payments')
@@ -47,7 +48,17 @@ export class PaymentController {
   @Post('')
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(AuthGuard())
-  async signup(@Body() newPaymentRequest: NewPaymentRequest): Promise<void> {
-    await this.paymentService.create(newPaymentRequest);
+  async signup(
+    @Body() newPaymentRequest: NewPaymentRequest,
+    @Usr() user: AuthUser,
+  ): Promise<Payment | null> {
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    return await this.paymentService.create({
+      userId: user.id,
+      ...newPaymentRequest,
+    } as Payment);
   }
 }

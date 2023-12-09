@@ -8,9 +8,6 @@ export class PaymentRequest {
 
 export class NewPaymentRequest {
   @IsNotEmpty()
-  user: string;
-
-  @IsNotEmpty()
   amount: number;
 
   @IsNotEmpty()
