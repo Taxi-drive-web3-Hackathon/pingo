@@ -1,17 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { Payment } from './models';
+import { Payment } from './payment';
+import { PrismaService } from '../common/services/prisma.service';
 
 @Injectable()
 export class PaymentService {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  public async getPaymentById(id: number): Promise<Payment> {
-    return {
-      id,
-      amount: 100,
-      addressReceiver: '0x1234567890',
-      chainId: '1',
-    };
+  public async getPaymentById(id: number): Promise<Payment | null> {
+    return this.prisma.payment.findUnique({
+      where: { id },
+    });
   }
 }

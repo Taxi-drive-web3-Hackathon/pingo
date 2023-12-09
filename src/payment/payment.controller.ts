@@ -7,13 +7,14 @@ import {
   Get,
   UnauthorizedException,
   UseGuards,
+  BadRequestException,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Usr } from '../user/user.decorator';
 import { AuthUser } from '../auth/auth-user';
 import { PaymentService } from './payment.service';
-import { Payment } from './models';
+import { PaymentResponse } from './models';
 
 @ApiTags('payments')
 @Controller('payments')
@@ -27,11 +28,16 @@ export class PaymentController {
   async get(
     @Query('id', ParseIntPipe) id: number,
     @Usr() user: AuthUser,
-  ): Promise<Payment> {
+  ): Promise<PaymentResponse | null> {
     if (id !== user.id) {
       throw new UnauthorizedException();
     }
 
-    return await this.paymentService.getPaymentById(id);
+    const payment = await this.paymentService.getPaymentById(id);
+    if (payment === null) {
+      throw new BadRequestException();
+    }
+
+    return new PaymentResponse(payment);
   }
 }
