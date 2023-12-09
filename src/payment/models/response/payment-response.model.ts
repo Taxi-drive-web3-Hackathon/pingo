@@ -9,7 +9,7 @@ export class PaymentResponse {
   addressReceiver: string;
 
   @ApiProperty()
-  chainId: string;
+  chainId: number;
 
   @ApiProperty()
   amount: number;
