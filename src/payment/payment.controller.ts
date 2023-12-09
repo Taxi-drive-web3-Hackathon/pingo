@@ -33,7 +33,7 @@ export class PaymentController {
       throw new UnauthorizedException();
     }
 
-    const payment = await this.paymentService.getPaymentById(id);
+    const payment = await this.paymentService.getPaymentById(id, user.id);
     if (payment === null) {
       throw new BadRequestException();
     }
