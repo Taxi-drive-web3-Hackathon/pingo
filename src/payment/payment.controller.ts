@@ -2,9 +2,11 @@ import {
   Controller,
   HttpCode,
   HttpStatus,
+  Body,
   Query,
   ParseIntPipe,
   Get,
+  Post,
   UnauthorizedException,
   UseGuards,
   BadRequestException,
@@ -14,7 +16,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Usr } from '../user/user.decorator';
 import { AuthUser } from '../auth/auth-user';
 import { PaymentService } from './payment.service';
-import { PaymentResponse } from './models';
+import { NewPaymentRequest, PaymentResponse } from './models';
 
 @ApiTags('payments')
 @Controller('payments')
@@ -39,5 +41,13 @@ export class PaymentController {
     }
 
     return new PaymentResponse(payment);
+  }
+
+  @ApiBearerAuth()
+  @Post('')
+  @HttpCode(HttpStatus.CREATED)
+  @UseGuards(AuthGuard())
+  async signup(@Body() newPaymentRequest: NewPaymentRequest): Promise<void> {
+    await this.paymentService.create(newPaymentRequest);
   }
 }
