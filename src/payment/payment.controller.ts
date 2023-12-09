@@ -29,7 +29,7 @@ export class PaymentController {
     @Query('id', ParseIntPipe) id: number,
     @Usr() user: AuthUser,
   ): Promise<PaymentResponse | null> {
-    if (id !== user.id) {
+    if (!user) {
       throw new UnauthorizedException();
     }
 
