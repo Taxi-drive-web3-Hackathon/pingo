@@ -51,12 +51,12 @@ export class PaymentController {
   async signup(
     @Body() newPaymentRequest: NewPaymentRequest,
     @Usr() user: AuthUser,
-  ): Promise<Payment | null> {
+  ): Promise<void> {
     if (!user) {
       throw new UnauthorizedException();
     }
 
-    return await this.paymentService.create({
+    await this.paymentService.create({
       userId: user.id,
       ...newPaymentRequest,
     } as Payment);
