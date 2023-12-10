@@ -19,7 +19,7 @@ model User {
 model Payment {
   id              Int     @id @default(autoincrement())
   addressReceiver String
-  chainId         Int
+  chainId         String
   amount          Float
 
   user   User @relation(fields: [userId], references: [id])
