@@ -28,13 +28,10 @@ describe('AuthController (e2e)', () => {
   });
 
   describe('/auth/signup POST', () => {
-    it('should not accept usernames with underscore', () => {
+    it('should not accept invalid emails', () => {
       const signupRequest: SignupRequest = {
-        email: 'auysal16@ku.edu.tr',
-        firstName: 'Ahmet',
-        lastName: 'Uysal',
-        password: 'password',
-        username: 'invalid_username',
+        email: 'auysal16',
+        name: 'invalid_username',
       };
 
       return request(app.getHttpServer())
@@ -44,9 +41,7 @@ describe('AuthController (e2e)', () => {
         .expect({
           statusCode: 400,
           error: 'Bad Request',
-          message: [
-            'username must match /^[a-zA-Z0-9\\-]+$/ regular expression',
-          ],
+          message: ['email must be an email'],
         });
     });
   });

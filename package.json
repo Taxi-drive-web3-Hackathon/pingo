@@ -49,6 +49,8 @@
     ]
   },
   "dependencies": {
+    "@chainlink/env-enc": "^1.0.5",
+    "@chainlink/functions-toolkit": "^0.2.8",
     "@nestjs/common": "^8.1.1",
     "@nestjs/config": "1.0.2",
     "@nestjs/core": "^8.1.1",
@@ -63,6 +65,7 @@
     "class-validator": "^0.14.0",
     "dotenv": "^10.0.0",
     "dotenv-cli": "4.1.1",
+    "ethers": "^6.9.0",
     "helmet": "^4.6.0",
     "nanoid": "^3.1.31",
     "nodemailer": "^6.7.0",

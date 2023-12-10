@@ -14,6 +14,9 @@ export class PaymentResponse {
   @ApiProperty()
   amount: number;
 
+  @ApiProperty()
+  userId: number;
+
   constructor(entity: Payment | null) {
     if (!entity) {
       throw new Error('Entity is empty');
