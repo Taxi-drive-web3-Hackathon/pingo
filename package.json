@@ -49,6 +49,8 @@
     ]
   },
   "dependencies": {
+    "@chainlink/env-enc": "^1.0.5",
+    "@chainlink/functions-toolkit": "^0.2.8",
     "@nestjs/common": "^8.1.1",
     "@nestjs/config": "1.0.2",
     "@nestjs/core": "^8.1.1",
@@ -58,7 +60,6 @@
     "@nestjs/swagger": "^5.1.2",
     "@nestjs/throttler": "2.0.0",
     "@prisma/client": "3.3.0",
-    "@chainlink/env-enc": "^1.0.5",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.14.0",
