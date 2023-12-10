@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import * as helmet from 'helmet';
+import Helmet from 'helmet';
 import * as requestIp from 'request-ip';
 import { AppModule } from './app.module';
 
@@ -15,7 +15,7 @@ async function bootstrap() {
   app.use(requestIp.mw());
 
   // Helmet Middleware against known security vulnerabilities
-  app.use(helmet());
+  app.use(Helmet());
 
   // Swagger API Documentation
   const options = new DocumentBuilder()
