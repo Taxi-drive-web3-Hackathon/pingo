@@ -1,15 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Payment } from './payment';
 import { PrismaService } from '../common/services/prisma.service';
-import { EventService } from './event.service';
 
 @Injectable()
 export class PaymentService {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly event: EventService,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   public async getPaymentById(
     id: number,
@@ -21,7 +17,7 @@ export class PaymentService {
   }
 
   public async create(payment: Payment): Promise<Payment | null> {
-    const paymentEntity = await this.prisma.payment.create({
+    return await this.prisma.payment.create({
       data: {
         addressReceiver: payment.addressReceiver,
         chainId: payment.chainId,
@@ -33,9 +29,5 @@ export class PaymentService {
         },
       },
     });
-
-    await this.event.emit('payment.created', paymentEntity);
-
-    return paymentEntity;
   }
 }
