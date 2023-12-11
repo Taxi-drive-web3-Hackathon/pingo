@@ -1,6 +1,7 @@
 const paymentId = args[0];
+const token = args[1];
 
-if (!secrets.token) {
+if (!token) {
   throw new Error('Missing token');
 }
 
@@ -10,7 +11,7 @@ const request = Functions.makeHttpRequest({
   url: `https://pingo-pay.vercel.app/payments?id=${paymentId}`,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + secrets.token,
+    Authorization: 'Bearer ' + token,
   },
 });
 

@@ -11,7 +11,7 @@ const {
   deleteGist,
   FulfillmentCode,
 } = require('@chainlink/functions-toolkit');
-const functionsConsumerAbi = require('../../abi/functionsClient.json');
+const functionsConsumerAbi = require('./abi/functionClient.json');
 const ethers = require('ethers');
 require('@chainlink/env-enc').config();
 
@@ -30,7 +30,7 @@ const makeRequestMumbai = async () => {
     .readFileSync(path.resolve(__dirname, 'source.js'))
     .toString();
 
-  const args = ['1']; // args - payment ID
+  const args = ['1', process.env.API_KEY]; // args - payment ID
   const secrets = { token: process.env.API_KEY };
   const gasLimit = 300000;
 
@@ -119,24 +119,24 @@ const makeRequestMumbai = async () => {
   await secretsManager.initialize();
 
   // Encrypt secrets
-  const encryptedSecretsObj = await secretsManager.encryptSecrets(secrets);
+  // const encryptedSecretsObj = await secretsManager.encryptSecrets(secrets);
 
-  console.log(`Creating gist...`);
-  const githubApiToken = process.env.GITHUB_API_TOKEN;
-  if (!githubApiToken)
-    throw new Error(
-      'githubApiToken not provided - check your environment variables'
-    );
+  // console.log(`Creating gist...`);
+  // const githubApiToken = process.env.GITHUB_API_TOKEN;
+  // if (!githubApiToken)
+  //   throw new Error(
+  //     'githubApiToken not provided - check your environment variables'
+  //   );
 
-  // Create a new GitHub Gist to store the encrypted secrets
-  const gistURL = await createGist(
-    githubApiToken,
-    JSON.stringify(encryptedSecretsObj)
-  );
-  console.log(`\n✅Gist created ${gistURL} . Encrypt the URLs..`);
-  const encryptedSecretsUrls = await secretsManager.encryptSecretsUrls([
-    gistURL,
-  ]);
+  // // Create a new GitHub Gist to store the encrypted secrets
+  // const gistURL = await createGist(
+  //   githubApiToken,
+  //   JSON.stringify(encryptedSecretsObj)
+  // );
+  // console.log(`\n✅Gist created ${gistURL} . Encrypt the URLs..`);
+  // const encryptedSecretsUrls = await secretsManager.encryptSecretsUrls([
+  //   gistURL,
+  // ]);
 
   const functionsConsumer = new ethers.Contract(
     consumerAddress,
@@ -228,10 +228,6 @@ const makeRequestMumbai = async () => {
             `\n✅ Decoded response to ${ReturnType.uint256}: `,
             decodedResponse
           );
-          // Delete gistURL - not needed anymore
-          console.log(`Delete gistUrl ${gistURL}`);
-          await deleteGist(githubApiToken, gistURL);
-          console.log(`\n✅ Gist ${gistURL} deleted`);
         }
       }
     } catch (error) {
