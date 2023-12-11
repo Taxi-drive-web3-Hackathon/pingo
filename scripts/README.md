@@ -1,4 +1,4 @@
-# Chainlink Functions Examples
+# Pingo Scripts
 
 This project is a command-line interface (CLI)
 
