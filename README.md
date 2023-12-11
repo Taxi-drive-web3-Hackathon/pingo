@@ -16,13 +16,12 @@ Welcome to the Pingo API, a robust system built with [Nest](https://nestjs.com) 
 Get started with Pingo by following these simple installation steps:
 
   1. **Clone the Repository:**
-    ```bash
+
     git clone https://github.com/Taxi-drive-web3-Hackathon/pingo/
 
 
-
   2. **Install dependencies:**
-    ```bash
+
     git clone https://github.com/Taxi-drive-web3-Hackathon/pingo/
 
 ## Authentication
@@ -30,19 +29,25 @@ Get started with Pingo by following these simple installation steps:
 The API uses [JWT](https://jwt.io/introduction) for authentication.
 
 To regsiter a new user, use the signup API:
-`curl -X POST http://localhost:3000/auth/signup -H "Content-Type: application/json" -d '{"email": "user@provider.com", "name": "user name"}'`
+
+    curl -X POST http://localhost:3000/auth/signup -H "Content-Type: application/json" -d '{"email": "user@provider.com", "name": "user name"}'
 
 To login and get a valid token, use the signin API:
-`curl -X POST http://localhost:3000/auth/signup -H "Content-Type: application/json" -d '{"email": "user@provider.com"}'`
+
+    curl -X POST http://localhost:3000/auth/signup -H "Content-Type: application/json" -d '{"email": "user@provider.com"}'
 ## Endpoints
 
 The following endpoints are available:
 
-- POST `/payments`: Create payment
-curl -X POST http://localhost:3000/payments -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d '{"amount": 22, "addressReceiver": "lalalau", "chainId": 666, "user": "leleco"}'
+**Create Payment**
+POST /payments
 
-- GET `/payments?id=1`: Get payment by ID
-curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" http://0.0.0.0:3000/payments\?id\=1
+    curl -X POST http://localhost:3000/payments -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d '{"amount": 22, "addressReceiver": "lalalau", "chainId": 666, "user": "leleco"}'
+
+**Get payment by ID**
+GET /payments?id=1
+
+    curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" http://0.0.0.0:3000/payments\?id\=1
 
 ## Usage
 
